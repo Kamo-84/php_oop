@@ -14,7 +14,7 @@
  * - Le mode d'exploitation : FETCH_ASSOC veut dire qu'on exploitera les données sous la forme de tableaux associatifs
  */
 
-require_once('/libraries/connexion.php');
+require_once('libraries/connexion.php');
 $pdo = getPdo();
 
 /**
