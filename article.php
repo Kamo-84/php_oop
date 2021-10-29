@@ -1,12 +1,17 @@
 <?php
 
 
-require_once('libraries/connexion.php');
+require_once('libraries/database.php');
 require_once('libraries/utils.php');
+require_once('libraries/models/Article.php');
+require_once('libraries/models/Comment.php');
 /**
  * 1. Récupération du param "id" et vérification de celui-ci
  */
 // On part du principe qu'on ne possède pas de param "id"
+$articleModel = new Article();
+$commentModel = new Comment();
+
 $article_id = null;
 
 // Mais si il y'en a un et que c'est un nombre entier, alors c'est cool
@@ -34,22 +39,14 @@ $pdo = getPdo();
  * On va ici utiliser une requête préparée car elle inclue une variable qui provient de l'utilisateur : Ne faites
  * jamais confiance à ce connard d'utilisateur ! :D
  */
-$query = $pdo->prepare("SELECT * FROM articles WHERE id = :article_id");
-
-// On exécute la requête en précisant le paramètre :article_id 
-$query->execute(['article_id' => $article_id]);
-
-// On fouille le résultat pour en extraire les données réelles de l'article
-$article = $query->fetch();
+$article = $articleModel->find($article_id);
 
 /**
  * 4. Récupération des commentaires de l'article en question
  * Pareil, toujours une requête préparée pour sécuriser la donnée filée par l'utilisateur (cet enfoiré en puissance !)
  */
-$query = $pdo->prepare("SELECT * FROM comments WHERE article_id = :article_id");
-$query->execute(['article_id' => $article_id]);
-$commentaires = $query->fetchAll();
 
+$commentaires = $commentModel->findAllWithArticle($article_id);
 /**
  * 5. On affiche 
  */
@@ -66,6 +63,6 @@ render(
     // "commentaires" => $commentaires,
     // 'article_id' => $article_id]
 
-    compact('article', 'commentaires', 'article_id') // compact() methode permet de créér un tableau assiciatif à partir du nom des variables
+    compact('article', 'commentaires', 'article_id', 'pageTitle') // compact() methode permet de créér un tableau assiciatif à partir du nom des variables
 
 );
