@@ -1,4 +1,9 @@
 <h1>Nos articles</h1>
+<h4>Total Articles
+    <sup style="color:red">
+        <?= count($articles) ?>
+    </sup>
+</h4>
 
 <?php foreach ($articles as $article) : ?>
     <h2><?= $article['title'] ?></h2>

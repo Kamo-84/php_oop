@@ -14,7 +14,7 @@
         <blockquote>
             <em><?= $commentaire['content'] ?></em>
         </blockquote>
-        <a href="delete-comment.php?id=<?= $commentaire['id'] ?>" onclick="return window.confirm(`Êtes vous sûr de vouloir supprimer ce commentaire ?!`)">Supprimer</a>
+        <a href="delete-comment.php?id=<?= $commentaire['id'] ?>" onclick=" window.confirm(`Êtes vous sûr de vouloir supprimer ce commentaire ?!`)">Supprimer</a>
     <?php endforeach ?>
 <?php endif ?>
 

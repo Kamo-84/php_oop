@@ -1,16 +1,8 @@
 <?php
 
-/**
- * CE FICHIER DOIT AFFICHER UN ARTICLE ET SES COMMENTAIRES !
- * 
- * On doit d'abord récupérer le paramètre "id" qui sera présent en GET et vérifier son existence
- * Si on n'a pas de param "id", alors on affiche un message d'erreur !
- * 
- * Sinon, on va se connecter à la base de données, récupérer les commentaires du plus ancien au plus récent (SELECT * FROM comments WHERE article_id = ?)
- * 
- * On va ensuite afficher l'article puis ses commentaires
- */
 
+require_once('libraries/connexion.php');
+require_once('libraries/utils.php');
 /**
  * 1. Récupération du param "id" et vérification de celui-ci
  */
@@ -35,10 +27,7 @@ if (!$article_id) {
  * 
  * PS : Vous remarquez que ce sont les mêmes lignes que pour l'index.php ?!
  */
-$pdo = new PDO('mysql:host=localhost;dbname=blogpoo;charset=utf8', 'root', '', [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
+$pdo = getPdo();
 
 /**
  * 3. Récupération de l'article en question
@@ -65,8 +54,18 @@ $commentaires = $query->fetchAll();
  * 5. On affiche 
  */
 $pageTitle = $article['title'];
-ob_start();
-require('templates/articles/show.html.php');
-$pageContent = ob_get_clean();
+// ob_start();
+// require('templates/articles/show.html.php');
+// $pageContent = ob_get_clean();
 
-require('templates/layout.html.php');
+// require('templates/layout.html.php');
+
+render(
+    'articles/show',
+    //[ "article" => $article,
+    // "commentaires" => $commentaires,
+    // 'article_id' => $article_id]
+
+    compact('article', 'commentaires', 'article_id') // compact() methode permet de créér un tableau assiciatif à partir du nom des variables
+
+);

@@ -6,7 +6,7 @@
  * On va donc vérifier que le paramètre "id" est bien présent en GET, qu'il correspond bien à un commentaire existant
  * Puis on le supprimera !
  */
-
+require_once('libraries/connexion.php');
 /**
  * 1. Récupération du paramètre "id" en GET
  */
@@ -25,10 +25,7 @@ $id = $_GET['id'];
  * 
  * PS : Vous remarquez que ce sont les mêmes lignes que pour l'index.php ?!
  */
-$pdo = new PDO('mysql:host=localhost;dbname=blogpoo;charset=utf8', 'root', '', [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
+$pdo = getPdo();
 
 /**
  * 3. Vérification de l'existence du commentaire
