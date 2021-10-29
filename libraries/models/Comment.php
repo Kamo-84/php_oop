@@ -1,9 +1,10 @@
 
 <?php
-require_once('libraries/database.php');
-class Comment
+require_once('libraries/models/Model.php');
+class Comment extends Model
 {
 
+  protected $table = "comments";
   /**
    * Retourne la liste des commentaires d'un article donné
    * 
@@ -23,39 +24,6 @@ class Comment
 
 
     return $commentaires;
-  }
-
-  /**
-   * Retourne un commentaire de la base de données grâce à son indentifiant
-   * 
-   * @param integer $id
-   * @return array|bool le commentaire si on le truve, false si on ne le trouve pas 
-   * 
-   */
-
-  public function find(int $id)
-  {
-    $pdo  = getPdo();
-
-    $query = $pdo->prepare("SELECT * FROM comments WHERE id = :id");
-
-    $query->execute(['id' => $id]);
-
-    $comment = $query->fetch();
-
-    return $comment;
-  }
-  /**
-   *  Suprime un commentaire grâce à son identifient
-   * @param integer $id
-   * @return void
-   */
-
-  public function delete(int $id): void
-  {
-    $pdo = getPdo();
-    $query = $pdo->prepare("DELETE FROM comments WHERE id = :id");
-    $query->execute(['id' => $id]);
   }
 
 
