@@ -10,5 +10,6 @@
 
 require_once('libraries/autoload.php');
 
-$controllers = new \Controllers\Article();
-$controllers->index();
+\Application::process();
+// $controllers = new \Controllers\Article();
+// $controllers->index();
