@@ -2,11 +2,6 @@
 
 namespace Controllers;
 
-require_once("libraries/utils.php");
-require_once("libraries/models/Comment.php");
-require_once("libraries/models/Article.php");
-require_once("libraries/controllers/Controller.php");
-
 class Comment extends Controller
 {
 
@@ -78,7 +73,7 @@ class Comment extends Controller
     // 4. Redirection vers l'article en question :
     // header('Location: article.php?id=' . $article_id);
     // exit();
-    redirect('article.php?id=' . $article_id);
+    \Http::redirect('article.php?id=' . $article_id);
   }
 
   public function delete()
@@ -126,6 +121,7 @@ class Comment extends Controller
     /**
      * 5. Redirection vers l'article en question
      */
-    header("Location: article.php?id=" . $article_id);
+
+    \Http::redirect("article.php?id=" . $article_id);
   }
 }

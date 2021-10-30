@@ -2,7 +2,7 @@
 
 namespace Models;
 
-require_once('libraries/models/Model.php');
+
 class Comment extends Model
 {
 
@@ -16,7 +16,7 @@ class Comment extends Model
 
   public function findAllWithArticle(int $article_id): array
   {
-    $pdo = getPdo();
+    $pdo = \Database::getPdo();
 
     $query = $pdo->prepare("SELECT * FROM comments WHERE article_id = :article_id");
 

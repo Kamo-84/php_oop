@@ -2,10 +2,8 @@
 
 namespace Controllers;
 
-require_once('libraries/utils.php');
-require_once('libraries/models/Article.php');
-require_once('libraries/models/Comment.php');
-require_once('libraries/controllers/Controller.php');
+
+
 
 class Article extends Controller
 {
@@ -23,7 +21,7 @@ class Article extends Controller
      * 3. Affichage
      */
     $pageTitle = "Accueil";
-    render('articles/index', compact('articles', 'pageTitle'));
+    \Renderer::render('articles/index', compact('articles', 'pageTitle'));
   }
 
   public function show()
@@ -81,7 +79,7 @@ class Article extends Controller
 
     // require('templates/layout.html.php');
 
-    render(
+    \Renderer::render(
       'articles/show',
       //[ "article" => $article,
       // "commentaires" => $commentaires,
@@ -132,6 +130,6 @@ class Article extends Controller
     /**
      * 5. Redirection vers la page d'accueil
      */
-    header("Location: index.php");
+    \Http::redirect('index.php');
   }
 }
