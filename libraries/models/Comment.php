@@ -1,5 +1,7 @@
-
 <?php
+
+namespace Models;
+
 require_once('libraries/models/Model.php');
 class Comment extends Model
 {
@@ -27,22 +29,9 @@ class Comment extends Model
   }
 
 
-  /**
-   * Insère un commentaire dans la base de données
-   * 
-   * @param string $author
-   * @param string $content
-   * @param ingeger $article_id
-   * @return void
-   */
-
-  function  insert(string $author, string $content, int $article_id): void
+  public function insert(string $author, string $content, int $article_id)
   {
-    $pdo = getPdo();
-
-    $query = $pdo->prepare("INSERT INTO comments SET author = :author, content = :content, article_id = :article_id, created_at = NOW()");
-
-    // $query->execute(['author' => $author, 'content' => $content, 'article_id' => $article_id]);
-    $query->execute(compact('author', 'content', 'article_id'));  //Avec methode compacte c'est plus compacte :D
+    $query = $this->pdo->prepare("INSERT INTO {$this->table} SET author = :author, content = :content, article_id = :article_id, created_at = NOW()");
+    $query->execute(compact('author', 'content', 'article_id'));
   }
 }
